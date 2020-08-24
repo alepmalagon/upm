@@ -68,6 +68,7 @@ latencies of each packet received back from the server."""
                     break
                 send_addr = (recv_addr[0], listen_port)
                 sock_out.sendto(data, send_addr)
+                print (".") 
             except KeyboardInterrupt:
                 break
         print("Closing...")
