@@ -20,15 +20,15 @@ echo.py on your client host will spit out a file containing the round-trip
 latencies of each packet received back from the server."""
 
     def run_client(self, target_address, n_packets, payload_len,
-            send_rate_kbytes_per_s):
+            send_rate_kbytes_per_s, device):
         """
         Start the two client threads: one to send packets, and one to receive them.
         """
         sender = multiprocessing.Process(
             target=self.send_packets,
-            args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s))
+            args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device))
 
-        listen_port = target_address[1]
+        listen_port = target_address[1] + 1
         output_filename = self.test_output_filename
         receiver = multiprocessing.Process(
             target=self.recv_packets,
@@ -54,21 +54,22 @@ latencies of each packet received back from the server."""
         sock_in = \
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         sock_in.bind(("0.0.0.0", listen_port))
-
+        sock_in.listen(2)
+        conn, address = sock_in.accept()
         sock_out = \
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
 
-
         print("UDP server running...")
-
+        print(str(sock_out))
         while True:
             try:
-                data, recv_addr = sock_in.recvfrom(recv_buffer_size)
+                data, recv_addr = conn.recvfrom(recv_buffer_size)
                 if not data:
                     break
-                send_addr = (recv_addr[0], listen_port)
-                sock_out.sendto(data, send_addr)
-                print("+", end='')
+                send_addr = (recv_addr[0], listen_port + 1)
+                #print(str(send_addr))
+                conn.send(data)
+                print (send_addr)
             except KeyboardInterrupt:
                 break
         print("Closing...")
