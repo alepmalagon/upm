@@ -8,7 +8,6 @@ from __future__ import division
 import socket
 import time
 import argparse
-import IN
 
 class Measurement:
 
@@ -30,7 +29,7 @@ class Measurement:
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         sock_out.setsockopt (
                 socket.SOL_SOCKET,
-                IN.SO_BINDTODEVICE,
+                25,
                 device.encode(),
             )
         sock_out.connect(target_address)
