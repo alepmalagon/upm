@@ -20,7 +20,7 @@ echo.py on your client host will spit out a file containing the round-trip
 latencies of each packet received back from the server."""
 
     def run_client(self, target_address, n_packets, payload_len,
-            send_rate_kbytes_per_s):
+            send_rate_kbytes_per_s, device):
         """
         Start the two client threads: one to send packets, and one to receive them.
         """
