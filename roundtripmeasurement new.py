@@ -28,7 +28,7 @@ latencies of each packet received back from the server."""
             target=self.send_packets,
             args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device))
 
-        listen_port = target_address[1] + 1
+        listen_port = target_address[1]
         output_filename = self.test_output_filename
         receiver = multiprocessing.Process(
             target=self.recv_packets,
@@ -66,7 +66,7 @@ latencies of each packet received back from the server."""
                 data, recv_addr = conn.recvfrom(recv_buffer_size)
                 if not data:
                     break
-                send_addr = (recv_addr[0], listen_port + 1)
+                send_addr = (recv_addr[0], listen_port)
                 #print(str(send_addr))
                 conn.send(data)
                 print (send_addr)
