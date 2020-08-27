@@ -66,7 +66,8 @@ latencies of each packet received back from the server."""
                 data, recv_addr = sock_in.recvfrom(recv_buffer_size)
                 if not data:
                     break
-                send_addr = ('152.206.246.10', 54320)
+                print(str(recv_addr))
+                send_addr = (recv_addr[0], listen_port)
                 sock_out.sendto(data, send_addr)
                 print (str(send_addr)) 
             except KeyboardInterrupt:
