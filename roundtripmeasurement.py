@@ -38,7 +38,11 @@ latencies of each packet received back from the server."""
         receiver = multiprocessing.Process(
             target=self.recv_packets,
             args=(listen_port, n_packets, payload_len, output_filename))
-
+        sock_out = \
+            socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
+        send_addr = (target_address[0], int(target_address[1])+1)
+        sock_out.sendto(1, send_addr)
+        sock_out.close()
         receiver.start()
 
         sender.join()
@@ -67,14 +71,16 @@ latencies of each packet received back from the server."""
         sock_sgnl.listen(2)
         conn, addr = sock_sgnl.accept()
         print("UDP server running...")
-
+        fist_package = true
         while True:
             try:
                 data, recv_addr = sock_in.recvfrom(recv_buffer_size)
-                conn.send(str(recv_addr[1]).zfill(10).encode('ascii'))
+                if fist_package:
+                    conn.send(str(recv_addr[1]).zfill(10).encode('ascii'))
+                    first_package = false
                 if not data:
                     break
-                send_addr = (recv_addr[0], int(recv_addr[1]))
+                send_addr = (recv_addr[0], int(recv_addr[1])+1)
                 sock_in.sendto(data, send_addr)
             except KeyboardInterrupt:
                 break
@@ -99,7 +105,7 @@ latencies of each packet received back from the server."""
         print (listen_port)
         sock_in = \
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
-        sock_in.bind(("0.0.0.0", listen_port))
+        sock_in.bind(("0.0.0.0", listen_port+1))
 
         timeout_seconds = 5
         sock_in.settimeout(timeout_seconds)
