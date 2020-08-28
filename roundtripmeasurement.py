@@ -26,6 +26,7 @@ latencies of each packet received back from the server."""
         """
         sock_sgnl = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock_sgnl.connect((target_address[0], 8080))
+        print("TCP Signaling Connected...")
         sender = multiprocessing.Process(
             target=self.send_packets,
             args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device))
