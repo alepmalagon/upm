@@ -24,14 +24,14 @@ latencies of each packet received back from the server."""
         """
         Start the two client threads: one to send packets, and one to receive them.
         """
-        sock_sgnl = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock_sgnl.connect((target_address[0], 8088))
-        print("TCP Signaling Connected...")
+        #sock_sgnl = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        #sock_sgnl.connect((target_address[0], 8088))
+        #print("TCP Signaling Connected...")
         sender = multiprocessing.Process(
             target=self.send_packets,
             args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device))
         sender.start()
-        data = sock_sgnl.recv(10)
+        #data = sock_sgnl.recv(10)
         listen_port = target_address[1]+1
         output_filename = self.test_output_filename
         receiver = multiprocessing.Process(
@@ -65,21 +65,22 @@ latencies of each packet received back from the server."""
         sock_out = \
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
 
-        sock_sgnl = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock_sgnl.bind((socket.gethostname(), 8088))
-        sock_sgnl.listen(2)
-        conn, addr = sock_sgnl.accept()
+        #sock_sgnl = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        #sock_sgnl.bind((socket.gethostname(), 8088))
+        #sock_sgnl.listen(2)
+        #conn, addr = sock_sgnl.accept()
         print("UDP server running...")
         fist_package = True
         while True:
             try:
                 data, recv_addr = sock_in.recvfrom(recv_buffer_size)
+                send_addr = (recv_addr[0], int(recv_addr[1])+1)
                 if fist_package:
-                    conn.send(str(recv_addr[1]).zfill(10).encode('ascii'))
+                    #conn.send(str(recv_addr[1]).zfill(10).encode('ascii'))
                     first_package = False
+                    print (str(send_addr))
                 if not data:
                     break
-                send_addr = (recv_addr[0], int(recv_addr[1])+1)
                 sock_in.sendto(data, send_addr)
             except KeyboardInterrupt:
                 break
