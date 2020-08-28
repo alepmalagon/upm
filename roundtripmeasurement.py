@@ -71,7 +71,7 @@ latencies of each packet received back from the server."""
         while True:
             try:
                 data, recv_addr = sock_in.recvfrom(recv_buffer_size)
-                conn.send(str(recv_addr[1]).zfill(10).decode('ascii'))
+                conn.send(str(recv_addr[1]).zfill(10).encode('ascii'))
                 if not data:
                     break
                 send_addr = (recv_addr[0], int(recv_addr[1]))
