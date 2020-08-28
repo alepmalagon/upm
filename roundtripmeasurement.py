@@ -40,7 +40,7 @@ latencies of each packet received back from the server."""
         sock_out = \
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         send_addr = (target_address[0], int(target_address[1])+1)
-        sock_out.sendto(1, send_addr)
+        sock_out.sendto('1', send_addr)
         sock_out.close()
         receiver.start()
 
