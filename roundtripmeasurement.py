@@ -27,7 +27,6 @@ latencies of each packet received back from the server."""
         #sock_sgnl = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         #sock_sgnl.connect((target_address[0], 8088))
         #print("TCP Signaling Connected...")
-        print (str(target_address))
         sender = multiprocessing.Process(
             target=self.send_packets,
             args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device))
@@ -72,10 +71,8 @@ latencies of each packet received back from the server."""
         while True:
             try:
                 data, recv_addr = sock_in.recvfrom(recv_buffer_size)
-                print (str(data)[1])
                 if  (str(data)[10]=='*'):
                     continue
-                print (str(data))
                 send_addr = (recv_addr[0], listen_port+1)
                 if fist_package:
                     #conn.send(str(recv_addr[1]).zfill(10).encode('ascii'))
@@ -104,7 +101,6 @@ latencies of each packet received back from the server."""
         latency for each packet by comparing the transmission timestamp contained
         within the packet to the system time at time of packet receipt.
         """
-        print (listen_port)
         sock_in = \
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         sock_in.bind(("0.0.0.0", listen_port+1))
@@ -113,12 +109,9 @@ latencies of each packet received back from the server."""
         sock_in.settimeout(timeout_seconds)
         send_addr = (recv_addr, listen_port)
         sock_in.sendto('*'*payload_len, send_addr)
-        #print ('i was here')
         packets = []
         try:
             while len(packets) < n_packets_expected:
-                print (len(packets))
-                print (n_packets_expected)
                 packet = sock_in.recv(payload_len)
                 recv_time = time.time()
                 payload = packet.rstrip("a")
