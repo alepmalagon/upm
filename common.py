@@ -24,9 +24,9 @@ def main(Measurement):
     if (parser.prog=="snowslide.py"):
         tester = Measurement(args.output_filename)
         if args.client:
-            tester.run_client(args.listen_port, SERVER_RECV_BUFFER_SIZE)
-        elif args.server:
             target_address = (args.client, args.listen_port)
+            tester.run_client(target_address, args.listen_port, SERVER_RECV_BUFFER_SIZE)
+        elif args.server:
             tester.run_server(target_address, args.n_packets, args.payload_len,
                               args.send_rate_kBps, args.device)
     else:
