@@ -33,7 +33,7 @@ latencies of each packet received back from the server."""
             args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device))
 
         #data = sock_sgnl.recv(10)
-        listen_port = target_address[1]+1
+        listen_port = target_address[1]
         output_filename = self.test_output_filename
         receiver = multiprocessing.Process(
             target=self.recv_packets,
