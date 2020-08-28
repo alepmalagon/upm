@@ -36,7 +36,7 @@ latencies of each packet received back from the server."""
         output_filename = self.test_output_filename
         receiver = multiprocessing.Process(
             target=self.recv_packets,
-            args=(listen_port, n_packets, payload_len, output_filename))
+            args=(target_address, listen_port, n_packets, payload_len, output_filename))
 
         sender.start()
         receiver.start()
@@ -92,7 +92,7 @@ latencies of each packet received back from the server."""
         return payload
 
     @classmethod
-    def recv_packets(cls, listen_port, n_packets_expected, payload_len,
+    def recv_packets(cls, recv_addr, listen_port, n_packets_expected, payload_len,
                      output_filename):
         """
         Receive packets bounced back from the server. Calculate the round-trip
@@ -106,7 +106,7 @@ latencies of each packet received back from the server."""
 
         timeout_seconds = 5
         sock_in.settimeout(timeout_seconds)
-        send_addr = (recv_addr[0], listen_port+1)
+        send_addr = (recv_addr, listen_port+1)
         sock_in.sendto('*', send_addr)
         packets = []
         try:
