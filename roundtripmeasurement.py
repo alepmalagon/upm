@@ -37,7 +37,7 @@ latencies of each packet received back from the server."""
         output_filename = self.test_output_filename
         receiver = multiprocessing.Process(
             target=self.recv_packets,
-            args=(target_address, listen_port, n_packets, payload_len, output_filename))
+            args=(target_address[0], listen_port, n_packets, payload_len, output_filename))
 
         sender.start()
         receiver.start()
