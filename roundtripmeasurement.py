@@ -73,7 +73,7 @@ latencies of each packet received back from the server."""
             try:
                 data, recv_addr = sock_in.recvfrom(recv_buffer_size)
                 print (str(data)[1])
-                if  (str(data)[1]=='*'):
+                if  (str(data)[10]=='*'):
                     continue
                 print (str(data))
                 send_addr = (recv_addr[0], listen_port+1)
