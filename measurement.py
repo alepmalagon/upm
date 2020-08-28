@@ -35,6 +35,7 @@ class Measurement:
                 )
         else:
             data, recv_addr = sock_out.recvfrom(packet_len)
+            target_address = recv_addr
      
         sock_out.connect(target_address)
 
