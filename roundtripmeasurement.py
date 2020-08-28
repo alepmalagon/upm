@@ -110,10 +110,11 @@ latencies of each packet received back from the server."""
         send_addr = (recv_addr, listen_port)
         sock_in.sendto(' ', send_addr)
         print ('i was here')
-        time.sleep(50)
         packets = []
         try:
             while len(packets) < n_packets_expected:
+                print (len(packets))
+                print (n_packets_expected)
                 packet = sock_in.recv(payload_len)
                 recv_time = time.time()
                 payload = packet.rstrip("a")
