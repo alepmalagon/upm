@@ -27,7 +27,6 @@ class Measurement:
         sock_out = \
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-        print (device)
         if (device!='serv'):
             sock_out.setsockopt (
                     socket.SOL_SOCKET,
