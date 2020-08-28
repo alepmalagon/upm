@@ -56,5 +56,6 @@ def parse_args(description):
     parser.add_argument("--listen_port", type=int, default=8888)
     parser.add_argument("--device")
     args = parser.parse_args()
+    print (str(args))
     return args
 
