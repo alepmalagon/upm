@@ -27,6 +27,7 @@ latencies of each packet received back from the server."""
         #sock_sgnl = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         #sock_sgnl.connect((target_address[0], 8088))
         #print("TCP Signaling Connected...")
+        print (str(target_address))
         sender = multiprocessing.Process(
             target=self.send_packets,
             args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device))
@@ -75,7 +76,7 @@ latencies of each packet received back from the server."""
                 if fist_package:
                     #conn.send(str(recv_addr[1]).zfill(10).encode('ascii'))
                     first_package = False
-                    print (str(send_addr))
+                    ##print (str(send_addr))
                 if not data:
                     break
                 sock_in.sendto(data, send_addr)
