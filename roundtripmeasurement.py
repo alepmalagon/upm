@@ -107,7 +107,7 @@ latencies of each packet received back from the server."""
 
         timeout_seconds = 5
         sock_in.settimeout(timeout_seconds)
-        send_addr = (recv_addr, listen_port+1)
+        send_addr = (recv_addr, listen_port)
         sock_in.sendto('*', send_addr)
         packets = []
         try:
