@@ -26,6 +26,7 @@ class Measurement:
         packet_interval = 1 / packet_rate
         sock_out = \
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
         print (device)
         if (device!='serv'):
             sock_out.setsockopt (
@@ -34,10 +35,12 @@ class Measurement:
                     device.encode(),
                 )
         else:
+            print (str(target_address))
+            listen_port = target_address[1]
+            sock_out.bind(("0.0.0.0", listen_port))
             data, recv_addr = sock_out.recvfrom(packet_len)
             target_address = recv_addr
-            print (str(target_address))
-     
+
         sock_out.connect(target_address)
 
         cls.pre_send(n_packets, sock_out)
