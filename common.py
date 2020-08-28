@@ -19,7 +19,6 @@ def main(Measurement):
         print("Warning: payload_len (%d) is greater than "
               "SERVER_RECV_BUFFER_SIZE (%d)" % (args.payload_len,
                                                 SERVER_RECV_BUFFER_SIZE))
-    if 
     tester = Measurement(args.output_filename)
     if args.server:
         tester.run_server(args.listen_port, SERVER_RECV_BUFFER_SIZE)
