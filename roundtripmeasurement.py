@@ -30,6 +30,7 @@ latencies of each packet received back from the server."""
         sender = multiprocessing.Process(
             target=self.send_packets,
             args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device))
+        sender.start()
         data = sock_sgnl.recv(10)
         print (int(data))
         listen_port = int(data)
@@ -39,7 +40,6 @@ latencies of each packet received back from the server."""
             args=(listen_port, n_packets, payload_len, output_filename))
 
         receiver.start()
-        sender.start()
 
         sender.join()
         receiver.join()
