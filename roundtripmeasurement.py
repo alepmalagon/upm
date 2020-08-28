@@ -25,7 +25,7 @@ latencies of each packet received back from the server."""
         Start the two client threads: one to send packets, and one to receive them.
         """
         sock_sgnl = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock_sgnl.connect((target_address[0], 8080))
+        sock_sgnl.connect((target_address[0], 8088))
         print("TCP Signaling Connected...")
         sender = multiprocessing.Process(
             target=self.send_packets,
@@ -63,7 +63,7 @@ latencies of each packet received back from the server."""
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
 
         sock_sgnl = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock_sgnl.bind((socket.gethostname(), 8080))
+        sock_sgnl.bind((socket.gethostname(), 8088))
         sock_sgnl.listen(2)
         conn, addr = sock_sgnl.accept()
         print("UDP server running...")
