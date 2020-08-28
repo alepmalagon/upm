@@ -25,7 +25,7 @@ latencies of each packet received back from the server."""
         Start the two client threads: one to send packets, and one to receive them.
         """
         sock_sgnl = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock_sgnl.connect((target_address[0], "8080"))
+        sock_sgnl.connect((target_address[0], 8080))
         sender = multiprocessing.Process(
             target=self.send_packets,
             args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device))
