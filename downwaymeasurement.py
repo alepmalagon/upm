@@ -11,11 +11,11 @@ import sys
 
 class RoundTripMeasurement(measurement.Measurement):
 
-    description = """Measure round-trip UDP packet latency.
+    description = """Measure down-trip UDP packet latency.
 On your server host, run:
-    $ ./echo.py --server
+    $ ./snowslide.py --server
 On your client host(s), run:
-    $ ./echo.py --client <IP address of server host>
+    $ ./snowslide.py --client <IP address of server host>
 echo.py on your client host will spit out a file containing the round-trip
 latencies of each packet received back from the server."""
 
@@ -26,7 +26,7 @@ latencies of each packet received back from the server."""
         """
         sender = multiprocessing.Process(
             target=self.send_packets,
-            args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device))
+            args=(target_address, 1, 200, send_rate_kbytes_per_s, device))
 
         listen_port = target_address[1]
         output_filename = self.test_output_filename

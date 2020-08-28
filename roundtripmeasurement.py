@@ -24,11 +24,14 @@ latencies of each packet received back from the server."""
         """
         Start the two client threads: one to send packets, and one to receive them.
         """
+        sock_sgnl = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock_sgnl.connect((target_address, '8080'))
         sender = multiprocessing.Process(
             target=self.send_packets,
             args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device))
-
-        listen_port = target_address[1]
+        data = sock_sgnl.recv(10)
+        print (int(data))
+        listen_port = int(data)
         output_filename = self.test_output_filename
         receiver = multiprocessing.Process(
             target=self.recv_packets,
@@ -58,12 +61,16 @@ latencies of each packet received back from the server."""
         sock_out = \
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
 
-
+        sock_sgnl = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock_sgnl.bind((socket.gethostname(), 8080))
+        sock_sgnl.listen(2)
+        conn, addr = sock_sgnl.accept()
         print("UDP server running...")
 
         while True:
             try:
                 data, recv_addr = sock_in.recvfrom(recv_buffer_size)
+                conn.send(recv_addr[1].rjust(10,'0'))
                 if not data:
                     break
                 send_addr = (recv_addr[0], int(recv_addr[1]))
