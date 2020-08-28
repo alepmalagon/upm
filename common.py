@@ -14,7 +14,7 @@ def main(Measurement):
     """
 
     args = parse_args(Measurement.description)
-
+    print(str(args))
     if args.payload_len > SERVER_RECV_BUFFER_SIZE:
         print("Warning: payload_len (%d) is greater than "
               "SERVER_RECV_BUFFER_SIZE (%d)" % (args.payload_len,
