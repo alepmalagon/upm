@@ -32,8 +32,7 @@ latencies of each packet received back from the server."""
             args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device))
         sender.start()
         data = sock_sgnl.recv(10)
-        print (int(data))
-        listen_port = int(data)
+        listen_port = target_address[1]+1
         output_filename = self.test_output_filename
         receiver = multiprocessing.Process(
             target=self.recv_packets,
@@ -71,13 +70,13 @@ latencies of each packet received back from the server."""
         sock_sgnl.listen(2)
         conn, addr = sock_sgnl.accept()
         print("UDP server running...")
-        fist_package = true
+        fist_package = True
         while True:
             try:
                 data, recv_addr = sock_in.recvfrom(recv_buffer_size)
                 if fist_package:
                     conn.send(str(recv_addr[1]).zfill(10).encode('ascii'))
-                    first_package = false
+                    first_package = False
                 if not data:
                     break
                 send_addr = (recv_addr[0], int(recv_addr[1])+1)
