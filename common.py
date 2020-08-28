@@ -19,13 +19,24 @@ def main(Measurement):
         print("Warning: payload_len (%d) is greater than "
               "SERVER_RECV_BUFFER_SIZE (%d)" % (args.payload_len,
                                                 SERVER_RECV_BUFFER_SIZE))
-    tester = Measurement(args.output_filename)
-    if args.server:
-        tester.run_server(args.listen_port, SERVER_RECV_BUFFER_SIZE)
-    elif args.client:
-        target_address = (args.client, args.listen_port)
-        tester.run_client(target_address, args.n_packets, args.payload_len,
-                          args.send_rate_kBps, args.device)
+    parser = argparse.ArgumentParser()
+    print (parser.prog)
+    if (parser.prog=="snowslide.py"):
+        tester = Measurement(args.output_filename)
+        if args.client:
+            tester.run_client(args.listen_port, SERVER_RECV_BUFFER_SIZE)
+        elif args.server:
+            target_address = (args.client, args.listen_port)
+            tester.run_server(target_address, args.n_packets, args.payload_len,
+                              args.send_rate_kBps, args.device)
+    else:
+        tester = Measurement(args.output_filename)
+        if args.server:
+            tester.run_server(args.listen_port, SERVER_RECV_BUFFER_SIZE)
+        elif args.client:
+            target_address = (args.client, args.listen_port)
+            tester.run_client(target_address, args.n_packets, args.payload_len,
+                              args.send_rate_kBps, args.device)
 
 def parse_args(description):
     """
