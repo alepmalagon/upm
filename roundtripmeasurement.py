@@ -72,6 +72,7 @@ latencies of each packet received back from the server."""
         while True:
             try:
                 data, recv_addr = sock_in.recvfrom(recv_buffer_size)
+                print (str(data))
                 send_addr = (recv_addr[0], listen_port+1)
                 if fist_package:
                     #conn.send(str(recv_addr[1]).zfill(10).encode('ascii'))
@@ -108,7 +109,7 @@ latencies of each packet received back from the server."""
         timeout_seconds = 5
         sock_in.settimeout(timeout_seconds)
         send_addr = (recv_addr, listen_port)
-        sock_in.sendto('1 1 1 1 1 aaaaaaaaaaa', send_addr)
+        #sock_in.sendto('1 1 1 1 1 aaaaaaaaaaa', send_addr)
         #print ('i was here')
         packets = []
         try:
