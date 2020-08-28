@@ -42,7 +42,7 @@ latencies of each packet received back from the server."""
     def pre_send(n_packets, sock_out):
         return
 
-    def run_client(self, target_address, listen_port, recv_buffer_size):
+    def run_client(self, target_address, n_packets, payload_len):
         """
         Listen for UDP packets on listen_port, and when a packet is
         received, immediately send it back to the host it came from (to

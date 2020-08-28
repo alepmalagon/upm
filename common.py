@@ -25,7 +25,7 @@ def main(Measurement):
         tester = Measurement(args.output_filename)
         if args.client:
             target_address = (args.client, args.listen_port)
-            tester.run_client(target_address, args.listen_port, SERVER_RECV_BUFFER_SIZE)
+            tester.run_client(target_address, args.n_packets, args.payload_len)
         elif args.server:
             tester.run_server(args.n_packets, args.payload_len,
                               args.send_rate_kBps, args.device)
