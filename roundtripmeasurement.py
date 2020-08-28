@@ -96,7 +96,7 @@ latencies of each packet received back from the server."""
         latency for each packet by comparing the transmission timestamp contained
         within the packet to the system time at time of packet receipt.
         """
-
+        print (listen_port)
         sock_in = \
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         sock_in.bind(("0.0.0.0", listen_port))
