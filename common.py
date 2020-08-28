@@ -19,7 +19,7 @@ def main(Measurement):
         print("Warning: payload_len (%d) is greater than "
               "SERVER_RECV_BUFFER_SIZE (%d)" % (args.payload_len,
                                                 SERVER_RECV_BUFFER_SIZE))
-
+    if 
     tester = Measurement(args.output_filename)
     if args.server:
         tester.run_server(args.listen_port, SERVER_RECV_BUFFER_SIZE)
@@ -46,5 +46,6 @@ def parse_args(description):
     parser.add_argument("--listen_port", type=int, default=8888)
     parser.add_argument("--device")
     args = parser.parse_args()
+    args.add("name", parser.prog)
     return args
 
