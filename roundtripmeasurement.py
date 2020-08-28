@@ -30,18 +30,15 @@ latencies of each packet received back from the server."""
         sender = multiprocessing.Process(
             target=self.send_packets,
             args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device))
-        sender.start()
+
         #data = sock_sgnl.recv(10)
         listen_port = target_address[1]+1
         output_filename = self.test_output_filename
         receiver = multiprocessing.Process(
             target=self.recv_packets,
             args=(listen_port, n_packets, payload_len, output_filename))
-        sock_out = \
-            socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
-        send_addr = (target_address[0], int(target_address[1])+1)
-        sock_out.sendto('1', send_addr)
-        sock_out.close()
+
+        sender.start()
         receiver.start()
 
         sender.join()
@@ -109,7 +106,8 @@ latencies of each packet received back from the server."""
 
         timeout_seconds = 5
         sock_in.settimeout(timeout_seconds)
-
+        send_addr = (recv_addr[0], listen_port+1)
+        sock_in.sendto('*', send_addr)
         packets = []
         try:
             while len(packets) < n_packets_expected:
