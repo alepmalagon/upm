@@ -21,6 +21,6 @@ calculation of the number of packets that got lost along the way.
 """
 
 import common
-import roundtripmeasurement
+import downwaymeasurement
 
-common.main(roundtripmeasurement.RoundTripMeasurement)
+common.main(downwaymeasurement.DownWayMeasurement)

@@ -24,14 +24,18 @@ class Measurement:
         send_rate_bytes_per_s = send_rate_kbytes_per_s * 1000
         packet_rate = send_rate_bytes_per_s / packet_len
         packet_interval = 1 / packet_rate
-
         sock_out = \
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        sock_out.setsockopt (
-                socket.SOL_SOCKET,
-                25,
-                device.encode(),
-            )
+        print (device)
+        if (device!='server'):
+            sock_out.setsockopt (
+                    socket.SOL_SOCKET,
+                    25,
+                    device.encode(),
+                )
+        else:
+            data, recv_addr = sock_out.recvfrom(packet_len)
+     
         sock_out.connect(target_address)
 
         cls.pre_send(n_packets, sock_out)
