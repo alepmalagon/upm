@@ -14,13 +14,13 @@ def main(Measurement):
     """
 
     args = parse_args(Measurement.description)
-    print(str(args))
+    #print(str(args))
     if args.payload_len > SERVER_RECV_BUFFER_SIZE:
         print("Warning: payload_len (%d) is greater than "
               "SERVER_RECV_BUFFER_SIZE (%d)" % (args.payload_len,
                                                 SERVER_RECV_BUFFER_SIZE))
     parser = argparse.ArgumentParser()
-    print (parser.prog)
+    #print (parser.prog)
     if (parser.prog=="snowslide.py"):
         tester = Measurement(args.output_filename)
         if args.client:
@@ -56,6 +56,6 @@ def parse_args(description):
     parser.add_argument("--listen_port", type=int, default=8888)
     parser.add_argument("--device")
     args = parser.parse_args()
-    print (str(args))
+    #print (str(args))
     return args
 
