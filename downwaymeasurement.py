@@ -96,7 +96,7 @@ latencies of each packet received back from the server."""
             print("So far, had received %d packets" % len(packets))
 
         print("Received %d/%d packets back from server" % (len(packets),
-                                                           n_packets_expected))
+                                                            n_packets_expected))
 
         cls.save_packet_latencies(packets, n_packets_expected, output_filename)
         sock_in.close()
