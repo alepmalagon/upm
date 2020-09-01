@@ -62,8 +62,16 @@ latencies of each packet received back from the server."""
 
     @classmethod
     def get_packet_payload(cls, packet_n):
-        send_time_seconds = time.time()
-        payload = pickle.dumps((packet_n, send_time_seconds))
+        """
+        Return a packet payload consisting of:
+        - The packet number
+        - The current counter value
+        - A host 'ID' representing this client specifically
+          (so that received packets can later be separated)
+        """
+        host_id = cls.guess_host_id()
+        counter_value_send = logi_pi_timer.read_counter()
+        payload = "%05d %05d %d" % (packet_n, counter_value_send, host_id)
         return payload
 
     @classmethod
@@ -81,7 +89,7 @@ latencies of each packet received back from the server."""
         timeout_seconds = 5
         sock_in.settimeout(timeout_seconds)
         send_addr = (recv_addr, listen_port)
-        sock_in.sendto('*'*payload_len, send_addr)
+        sock_in.sendto(('*'*payload_len).encode('ascii'), send_addr)
         packets = []
         try:
             while len(packets) < n_packets_expected:
