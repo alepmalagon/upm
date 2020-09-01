@@ -56,7 +56,7 @@ class Measurement:
             payload = cls.get_packet_payload(packet_n)
             n_fill_bytes = packet_len - len(payload)
             fill_char = "a"
-            payload = bytes(payload + (n_fill_bytes * fill_char))
+            payload = bytes(payload + (n_fill_bytes * fill_char), 'ascii')
             sock_out.sendall(payload)
 
             tx_end_seconds = time.time()
