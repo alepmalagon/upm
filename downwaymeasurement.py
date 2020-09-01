@@ -97,7 +97,7 @@ latencies of each packet received back from the server."""
                 packet = sock_in.recv(payload_len)
                 recv_time = time.time()
                 payload = str(packet,'ascii').rstrip("a")
-                (packet_n, send_time) = pickle.loads(payload)
+                (packet_n, send_time) = pickle.loads(payload.encode('ascii'))
                 latency_us = (recv_time - send_time) * 1e6
                 packets.append((packet_n, latency_us))
         except socket.timeout:
