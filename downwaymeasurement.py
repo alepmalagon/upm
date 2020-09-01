@@ -8,6 +8,7 @@ import multiprocessing
 import time
 import pickle
 import sys
+import logi_pi_timer
 
 class DownWayMeasurement(measurement.Measurement):
 
