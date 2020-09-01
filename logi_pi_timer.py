@@ -5,17 +5,17 @@ Pi FPGA board.
 
 #import logi
 import datetime as dt
-import ntplib
+#import ntplib
 
 def microseconds_past_the_hour(t2):
     return t2.microsecond + 1000000*(t2.minute*60 + t2.second)
 
-def get_ntp_time():
-    ntp_pool = '0.pool.ntp.org'
-    call = ntplib.NTPClient()
-    response = call.request(ntp_pool, version=3)
-    t = dt.datetime.fromtimestamp(response.orig_time)
-    return t
+#def get_ntp_time():
+#    ntp_pool = '0.pool.ntp.org'
+#    call = ntplib.NTPClient()
+#    response = call.request(ntp_pool, version=3)
+#    t = dt.datetime.fromtimestamp(response.orig_time)
+#    return t
 
 #stime = get_ntp_time()
 #phase = dt.datetime.now() - stime
