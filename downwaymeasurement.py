@@ -69,7 +69,7 @@ latencies of each packet received back from the server."""
         - A host 'ID' representing this client specifically
           (so that received packets can later be separated)
         """
-        host_id = cls.guess_host_id()
+        host_id = ""
         counter_value_send = logi_pi_timer.read_counter()
         payload = "%05d %05d %d" % (packet_n, counter_value_send, host_id)
         return payload
