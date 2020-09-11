@@ -27,7 +27,7 @@ class Measurement:
         packet_interval = 1 / packet_rate
         sock_out = \
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        delay = delay - 1
+        #delay = delay - 1
         n_repeat = n_repeat -1
         if (device!='serv'):
             sock_out.setsockopt (
@@ -54,13 +54,15 @@ class Measurement:
         inter_packet_sleep_times_ms = []
         for packet_n in range(n_packets):
             tx_start_seconds = time.time()
-            if (packet_n%n_repeat==0):
+            if n_repeat==-1:
+                _packet_n = packet_n
+            elseif (packet_n%n_repeat==0):
                 _packet_n = int(math.floor(packet_n/n_repeat))
             else:
                 _packet_n = int(math.floor(packet_n/n_repeat)) - delay
                 if _packet_n<0:
                     _packet_n = 0
-            print (_packet_n)        
+            print (_packet_n)
             payload = cls.get_packet_payload(_packet_n)
             n_fill_bytes = packet_len - len(payload)
             fill_char = "a"
