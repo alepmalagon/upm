@@ -56,7 +56,7 @@ class Measurement:
             tx_start_seconds = time.time()
             if n_repeat==-1:
                 _packet_n = packet_n
-            elseif (packet_n%n_repeat==0):
+            elif (packet_n%n_repeat==0):
                 _packet_n = int(math.floor(packet_n/n_repeat))
             else:
                 _packet_n = int(math.floor(packet_n/n_repeat)) - delay
