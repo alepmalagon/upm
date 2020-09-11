@@ -27,7 +27,8 @@ class Measurement:
         packet_interval = 1 / packet_rate
         sock_out = \
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
+        delay = delay - 1
+        n_repeat = n_repeat -1
         if (device!='serv'):
             sock_out.setsockopt (
                     socket.SOL_SOCKET,
