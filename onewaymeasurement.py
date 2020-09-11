@@ -21,7 +21,7 @@ the latencies of each packet received from the corresponding client.
 
     @classmethod
     def run_client(cls, target_address, n_packets, payload_len,
-            send_rate_kbytes_per_s, device):
+            send_rate_kbytes_per_s, device, delay, n_repeat):
         cls.send_packets(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device, delay, n_repeat)
 
     @classmethod
