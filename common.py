@@ -28,7 +28,7 @@ def main(Measurement):
             tester.run_client(target_address, args.n_packets, args.payload_len)
         elif args.server:
             tester.run_server(args.listen_port, args.n_packets, args.payload_len,
-                              args.send_rate_kBps, args.device)
+                              args.send_rate_kBps, args.device, args.delay, args.n_repeat)
     else:
         tester = Measurement(args.output_filename)
         if args.server:
@@ -36,7 +36,7 @@ def main(Measurement):
         elif args.client:
             target_address = (args.client, args.listen_port)
             tester.run_client(target_address, args.n_packets, args.payload_len,
-                              args.send_rate_kBps, args.device)
+                              args.send_rate_kBps, args.device, args.delay, args.n_repeat)
 
 def parse_args(description):
     """
@@ -50,6 +50,8 @@ def parse_args(description):
     group.add_argument('--client')
     parser.add_argument("--n_packets", type=int, default=100)
     parser.add_argument("--payload_len", type=int, default=256)
+    parser.add_argument("--delay", type=int, default=256)
+    parser.add_argument("--n_repeat", type=int, default=256)
     parser.add_argument("--send_rate_kBps", type=int, default=400)
     parser.add_argument(
         "--output_filename", default='udp_packetn_latency_pairs')

@@ -15,13 +15,13 @@ class Measurement:
         self.test_output_filename = test_output_filename
 
     @classmethod
-    def send_packets(cls, target_address, n_packets, packet_len, send_rate_kbytes_per_s, device):
+    def send_packets(cls, target_address, n_packets, packet_len, send_rate_kbytes_per_s, device, delay, n_repeat):
         """
         Send n_packets packets, each with a payload of packet_len bytes, to
         target_address, trying to maintain a constant send rate of
         send_rate_kbytes_per_s.
         """
-        send_rate_bytes_per_s = send_rate_kbytes_per_s * 1000
+        send_rate_bytes_per_s = n_repeat * send_rate_kbytes_per_s * 1000
         packet_rate = send_rate_bytes_per_s / packet_len
         packet_interval = 1 / packet_rate
         sock_out = \
@@ -52,7 +52,13 @@ class Measurement:
         inter_packet_sleep_times_ms = []
         for packet_n in range(n_packets):
             tx_start_seconds = time.time()
-
+            if (packet_n%n_repeat==0):
+                _packet_n = packet_n/n_repeat
+            else:
+                _packet_n = packet_n/n_repeat - delay
+                if _packet_n<0:
+                    _packet_n = 0
+                    
             payload = cls.get_packet_payload(packet_n)
             n_fill_bytes = packet_len - len(payload)
             fill_char = "a"

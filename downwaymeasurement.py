@@ -20,7 +20,7 @@ echo.py on your client host will spit out a file containing the round-trip
 latencies of each packet received back from the server."""
 
     def run_server(self, listen_port, n_packets, payload_len,
-            send_rate_kbytes_per_s, device):
+            send_rate_kbytes_per_s, device, delay, n_repeat):
         """
         Start the two client threads: one to send packets, and one to receive them.
         """
@@ -31,7 +31,7 @@ latencies of each packet received back from the server."""
 
         sender = multiprocessing.Process(
             target=self.send_packets,
-            args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device))
+            args=(target_address, n_packets, payload_len, send_rate_kbytes_per_s, device, delay, n_repeat))
 
         #data = sock_sgnl.recv(10)
 
