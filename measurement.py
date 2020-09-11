@@ -59,7 +59,7 @@ class Measurement:
                 if _packet_n<0:
                     _packet_n = 0
                     
-            payload = cls.get_packet_payload(packet_n)
+            payload = cls.get_packet_payload(_packet_n)
             n_fill_bytes = packet_len - len(payload)
             fill_char = "a"
             payload = bytes(payload + n_fill_bytes * fill_char)
