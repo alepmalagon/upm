@@ -8,6 +8,7 @@ from __future__ import division
 import socket
 import time
 import argparse
+import math
 
 class Measurement:
 
@@ -53,9 +54,9 @@ class Measurement:
         for packet_n in range(n_packets):
             tx_start_seconds = time.time()
             if (packet_n%n_repeat==0):
-                _packet_n = packet_n/n_repeat
+                _packet_n = int(math.floor(packet_n/n_repeat))
             else:
-                _packet_n = packet_n/n_repeat - delay
+                _packet_n = int(math.floor(packet_n/n_repeat)) - delay
                 if _packet_n<0:
                     _packet_n = 0
             print (_packet_n)        
