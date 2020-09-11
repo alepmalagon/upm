@@ -98,6 +98,7 @@ the latencies of each packet received from the corresponding client.
                     delta = counter_value_recv - counter_value_send
                     #print (str(counter_value_recv) + " " + str(counter_value_send) + " " + str(delta))
                     latency_us = delta
+                    print(packet_n)
                     packet_n_latency_tuples[host_id].append((packet_n, latency_us))
         except socket.timeout:
             print("Note: timed out waiting to receive packets")

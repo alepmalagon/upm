@@ -58,7 +58,7 @@ class Measurement:
                 _packet_n = packet_n/n_repeat - delay
                 if _packet_n<0:
                     _packet_n = 0
-                    
+            print (_packet_n)        
             payload = cls.get_packet_payload(_packet_n)
             n_fill_bytes = packet_len - len(payload)
             fill_char = "a"
