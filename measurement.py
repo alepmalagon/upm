@@ -22,13 +22,14 @@ class Measurement:
         target_address, trying to maintain a constant send rate of
         send_rate_kbytes_per_s.
         """
+        n_repeat = n_repeat+1
         send_rate_bytes_per_s = n_repeat * send_rate_kbytes_per_s * 1000
         packet_rate = send_rate_bytes_per_s / packet_len
         packet_interval = 1 / packet_rate
         sock_out = \
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         #delay = delay - 1
-        n_repeat = n_repeat -1
+        #n_repeat = n_repeat -1
         if (device!='serv'):
             sock_out.setsockopt (
                     socket.SOL_SOCKET,
@@ -54,9 +55,7 @@ class Measurement:
         inter_packet_sleep_times_ms = []
         for packet_n in range(n_packets):
             tx_start_seconds = time.time()
-            if n_repeat==-1:
-                _packet_n = packet_n
-            elif (packet_n%n_repeat==0):
+            if (packet_n%n_repeat==0):
                 _packet_n = int(math.floor(packet_n/n_repeat))
             else:
                 _packet_n = int(math.floor(packet_n/n_repeat)) - delay
